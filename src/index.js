@@ -7,6 +7,6 @@ import '../node_modules/font-awesome/css/font-awesome.min.css';
 import Stateless from './components/Stateless'
 import ModuleListIterate from './containers/ModuleListIterate';
 ReactDOM.render(
-    <ModuleListIterate/>,
+    <CourseManager/>,
     document.getElementById('root')
 );
