@@ -1,0 +1,16 @@
+import React from 'react'
+
+export default class LessonTabs extends React.Component {
+    render() {
+        return (
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Active</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">AnotherTab</a>
+                </li>
+             </ul>
+        )
+    }
+}
