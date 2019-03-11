@@ -6,12 +6,12 @@ export default class ModuleListItem extends React.Component{
     }
     render(){
         return(
-            <li className="list-group-item">
+            <li className="list-group-item" style={{paddingBottom:35}}>
                 {this.props.title}
-                <spam className="float-right">
-                <i className="fa fa-trash"></i>
+                <span className="float-right">
+                <i className="fa fa-trash" />&nbsp;&nbsp;&nbsp;&nbsp;
                 <i className="fa fa-pencil"></i>
-                </spam>
+                </span>
             </li>
         );
     }

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default class CourseRow
     extends React.Component{
@@ -7,7 +8,11 @@ export default class CourseRow
         }
         render(){
             return(
-                <tr><td>{this.props.course.title}</td></tr>    
+                <tr><td>
+                    <Link to={`/course/${this.props.course.id}`}>
+                        {this.props.course.title}
+                    </Link>
+                </td></tr>    
             )
         }
     }
