@@ -18,6 +18,18 @@ class CourseService {
             return response.json()
         });
     }
+    createCourse(course){
+        return fetch(COURSE_API_URL, {
+            body: JSON.stringify(course),
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            method: 'POST'
+
+        }).then (function(response){
+            return response.json();
+        })
+    }
 }
 
 export default CourseService;

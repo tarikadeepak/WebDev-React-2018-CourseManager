@@ -7,12 +7,19 @@ export default class CourseList
     constructor() {
         super()
         this.courseService = CourseService.instance;
-        this.state = {courses: []};
+        this.titleChanged = this.titleChanged.bind(this);
+        this.createCourse = this.createCourse.bind(this);
+        this.state = {
+            courses: [],
+            course: null,
+        };
     }
     componentDidMount(){
+        this.findAllCourses()
+    }
+    findAllCourses() {
         this.courseService.findAllCourses()
         .then((courses) => {
-            console.log(courses);
             this.setState({courses: courses});
         });
     }
@@ -21,7 +28,7 @@ export default class CourseList
         if (this.state) {
             courses = this.state.courses.map(
                 function (course) {
-                    return <CourseRow course={course}/>
+                    return <CourseRow key={course.id} course={course}/>
                 }
             )
         }
@@ -29,12 +36,33 @@ export default class CourseList
             courses
         )
     }
+    titleChanged(event){
+        this.setState({
+            course: {title: event.target.value}
+        })
+    }
+    createCourse(){
+       this.courseService
+        .createCourse(this.state.course)
+        .then(() => {this.findAllCourses();})
+    }
     render() {
         return (
             <div>
                 <h2>Course List</h2>
                 <table className='table'>
-                        <thead><tr><th>Title</th></tr></thead>
+                        <thead><tr><th>Title</th></tr>
+                            <tr>
+                                <th><input className = "form-control" id="titleField" 
+                                        placeholder="AddCourse" onChange={this.titleChanged}>
+                                    </input>
+                                </th>
+                                <th><button className = "btn btn-primary" onClick={this.createCourse}>
+                                        Add
+                                    </button>
+                                </th>
+                            </tr>
+                        </thead>
                     <tbody>
                         {this.renderCourseRows()}
                     </tbody>
