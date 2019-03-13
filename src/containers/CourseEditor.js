@@ -23,7 +23,7 @@ export default class CourseEditor extends React.Component {
 
                 <div className="row">
                     <div class="col-3">
-                        <ModuleList />
+                        <ModuleList courseId={this.state.courseId} />
                     </div>
                     <div class="col-9">
                         <LessonTabs />
