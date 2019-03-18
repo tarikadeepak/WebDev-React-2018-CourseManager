@@ -1,5 +1,5 @@
 let _singleton = Symbol();
-let MODULE_API_URL = 'http://localhost:8080/api/course';
+let MODULE_API_URL = 'http://webdev-summer-2018-dt.herokuapp.com/api/course';
 class ModuleService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -13,6 +13,7 @@ class ModuleService {
     }
     findModulesByCourseId(courseId){
         let url = MODULE_API_URL.concat('/').concat(courseId).concat('/module');
+        console.log("URL : " , url)
         return fetch(url)
         .then(function(response){
             return response.json()
