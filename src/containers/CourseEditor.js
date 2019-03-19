@@ -5,27 +5,29 @@ export default class CourseEditor extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {courseId: ''}
+        this.state = {courseId: '',
+                      title:''}
         this.selectCourse = this.selectCourse.bind(this)
     }
     componentDidMount() {
         this.selectCourse
-            (this.props.match.params.courseId)
+            (this.props.match.params.courseId,this.props.match.params.title)
     }
-    selectCourse(courseId) {
+    selectCourse(courseId,title) {
         this.setState({ courseId: courseId });
+        this.setState({ title: title });
+        
     }
 
     render() {
+        console.log("Title in Course Editor : " +  this.state.title)
         return (
             <div>
-                <h2>Editing Course: {this.state.courseId}</h2>
-
                 <div className="row">
-                    <div class="col-3">
-                        <ModuleList courseId={this.state.courseId} />
+                    <div className="col-3">
+                        <ModuleList courseId={this.state.courseId} title={this.state.title} />
                     </div>
-                    <div class="col-9">
+                    <div className="col-9">
                         <LessonTabs />
                     </div>
                 </div>

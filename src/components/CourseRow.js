@@ -9,8 +9,8 @@ export default class CourseRow
         render(){
             return(
                 <tr><td>
-                    <Link to={`/course/${this.props.course.id}`}>
-                        {this.props.course.title}
+                    <Link to={`/course/${this.props.courseId}/${this.props.title}`}>
+                        {this.props.title}
                     </Link>
                 </td></tr>    
             )

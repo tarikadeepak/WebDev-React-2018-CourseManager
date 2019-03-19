@@ -1,6 +1,6 @@
 let _singleton = Symbol();
 const COURSE_API_URL =
-    'https://webdev-summer-2018-dt.herokuapp.com/api/course';
+    'http://localhost:8080/api/course';
 class CourseService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)
@@ -29,6 +29,17 @@ class CourseService {
         }).then (function(response){
             return response.json();
         })
+    }
+    deleteCourse(courseId){
+        let url = COURSE_API_URL.concat('/').concat(courseId);
+        console.log('Delete URL ', url)
+         return fetch(url, {
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            method: 'DELETE'
+  
+         })
     }
 }
 

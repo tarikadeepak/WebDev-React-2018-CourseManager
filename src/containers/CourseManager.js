@@ -12,18 +12,10 @@ export default class CourseManager
             <Router>
                 <div className="container-fluid">
                     <Header></Header>
-                    <CourseCard></CourseCard>
-                     
-                    <Route path="/course/:courseId"
-                        component={CourseEditor}>
-                    </Route>
-                    {/* <CourseList />
-                    <div className="card-deck">
-                        <CourseCard />
-                        <CourseCard />
-                        <CourseCard />
-                        <CourseCard />
-                    </div> */}
+                    <Route exact path="/courses"
+                        component={CourseCard} />
+                    <Route exact path="/course/:courseId/:title"
+                        component={CourseEditor} />
                 </div>
             </Router>
         );

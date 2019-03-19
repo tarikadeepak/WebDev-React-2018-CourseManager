@@ -9,22 +9,27 @@ export default class ModuleList
         this.moduleService = ModuleService.instance;
         this.titleChanged = this.titleChanged.bind(this)
         this.createModule = this.createModule.bind(this)
-        this.setCourseId  = this.setCourseId.bind(this);
+        this.setCourse  = this.setCourse.bind(this);
+        this.deleteModule = this.deleteModule.bind(this)
+        this.handler = this.handler.bind(this)
         this.state = {         
             courseId: '',
+            title: '',
             module: {title: ''},
             modules: []
         };
     }
-    setCourseId(courseId){
+    setCourse(courseId, title){
         this.setState({courseId: courseId})
+        this.setState({title: title})
     }
     componentDidMount(){
-        this.setCourseId(this.props.courseId)
+        console.log("Title in DidMount " + this.props.title)
+        this.setCourse(this.props.courseId, this.props.title)
         
     }
     componentWillReceiveProps(newProps){
-        this.setCourseId(newProps.courseId)
+        this.setCourse(newProps.courseId,newProps.title)
         this.findModulesByCourseId(newProps.courseId)
     }
     findModulesByCourseId(courseId){
@@ -33,10 +38,24 @@ export default class ModuleList
             this.setState({modules: modules})
         });
     }
-
-    renderListOfModules(){
+    deleteModule(moduleId){
+        console.log('Inside DeleteModule')
+        console.log('Module ID ', moduleId)
+        console.log('Course ID ', this.props.courseId)
+        this.moduleService
+        .deleteModule(this.props.courseId, moduleId)
+        .then(() => {this.findModulesByCourseId(this.props.courseId);})
+      
+    }
+    handler(moduleId){
+        console.log('Back to handler ' +  moduleId)
+        this.deleteModule(moduleId);
+    }
+    
+    renderListOfModules(courseId, handler){
         let  modules = this.state.modules.map(function(module){
-                return<ModuleListItem key={module.id} title={module.title} />
+                return<ModuleListItem key={module.id} title={module.title} 
+                            courseId={courseId} moduleId={module.id} handler = {handler} />
             }
         )
         return modules;
@@ -55,10 +74,9 @@ export default class ModuleList
       
     }
     render() {
-        console.log('render : ' + this.state.courseId)
         return (
             <div>
-                <h3>Module List for Course : {this.state.courseId}</h3>
+                <h3>Welcome to {this.state.title}</h3>
                 <input className="form-control" 
                     onChange={this.titleChanged}
                     placeholder="title"/>
@@ -67,7 +85,7 @@ export default class ModuleList
                         <i className="fa fa-plus"></i>
                     </button>
                 <ul className="list-group">
-                    {this.renderListOfModules()}
+                    {this.renderListOfModules(this.state.courseId, this.handler)}
                 </ul>
             </div>
         );
