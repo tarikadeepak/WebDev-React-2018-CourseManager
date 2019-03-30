@@ -10,20 +10,17 @@ export default class CourseEditor extends React.Component {
         this.selectCourse = this.selectCourse.bind(this)
     }
     componentDidMount() {
-        this.selectCourse
-            (this.props.match.params.courseId,this.props.match.params.title)
+        this.selectCourse(this.props.match.params.courseId,this.props.match.params.title)
     }
     selectCourse(courseId,title) {
         this.setState({ courseId: courseId });
         this.setState({ title: title });
-        
     }
 
     render() {
-        console.log("Title in Course Editor : " +  this.state.title)
         return (
             <div>
-                <div className="row">
+                <div className="row" style={{marginTop:'20px' }}>
                     <div className="col-3">
                         <ModuleList courseId={this.state.courseId} title={this.state.title} />
                     </div>

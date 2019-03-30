@@ -3,9 +3,9 @@ import React from 'react'
 export default class LessonTabs extends React.Component {
     render() {
         return (
-            <ul class="nav nav-tabs">
+            <ul class="nav nav-tabs" style={{ fontSize: 25, marginTop:'20px' }}>
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Active</a>
+                    <a class="nav-link active">Active</a>
                     <ul>
                         <li>Lesson 1</li>
                         <li>Lesson 2</li>

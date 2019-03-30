@@ -9,10 +9,7 @@ export default class ModuleListItem extends React.Component{
         
     }
     deleteModule(event){
-        console.log('Inside DeleteModule')
-        console.log('Module ID ', this.props.moduleId)
-        console.log('Course ID ', this.props.courseId)
-        this.moduleService
+       this.moduleService
         .deleteModule(this.props.courseId, this.props.moduleId)
         .then(() => {this.findModulesByCourseId(this.props.courseId);})
       
@@ -21,7 +18,6 @@ export default class ModuleListItem extends React.Component{
         this.findModulesByCourseId(newProps.courseId)
     }
     findModulesByCourseId(courseId){
-        console.log('Inside Find Module')
         this.moduleService.findModulesByCourseId(courseId)
         .then((modules) => {
             this.setState({modules: modules})
@@ -30,7 +26,7 @@ export default class ModuleListItem extends React.Component{
     render(){
         var handler  =   this.props.handler;
         return(
-            <li className="list-group-item" style={{paddingBottom:35}}>
+            <li className="list-group-item" style={{paddingBottom:10}}>
                 {this.props.title}
                 <span className="float-right">
                 <i className="fa fa-trash" onClick={() => handler(this.props.moduleId)}/>

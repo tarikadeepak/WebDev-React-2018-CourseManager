@@ -1,10 +1,11 @@
 import React from 'react'
 
 var headerStyle = {
-    background: "lightgreen",
+    background: "#99ccff",
     padding: "20px",
     marginTop: "50px",
-    textAlign: "center"
+    textAlign: "center",
+    color:"red"
 };
 
 export default class Header
