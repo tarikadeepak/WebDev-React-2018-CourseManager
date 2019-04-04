@@ -81,11 +81,12 @@ export default class ModuleList
     }
 
     render() {
+        var coursesLink = '/courses/' + this.props.userId
         return (
             <div>
                 <h2 style={{ fontSize: 25, marginTop:'20px' }} >Welcome to {this.state.title}
                     &nbsp;&nbsp;&nbsp;
-                    <Link to={`/courses`}>
+                    <Link to={coursesLink}>
                         <CardLink ahref="#" className="fa fa-trash"
                             style={{ marginLeft: '10px' }} onClick={
                                 () => {

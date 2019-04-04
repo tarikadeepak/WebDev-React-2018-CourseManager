@@ -1,19 +1,21 @@
 import React from 'react'
 
 var headerStyle = {
-    background: "#99ccff",
-    padding: "20px",
-    marginTop: "50px",
-    textAlign: "center",
-    color:"red"
+    background: "#000066",
+    padding: "15px",
+    //marginTop: "5px",
+    marginLeft: '0px',
+    width:'100%',
+    textAlign: "Left",
+    color:"white",
 };
 
 export default class Header
     extends React.Component {
     render() {
         return (
-            <h2 style={headerStyle}>
-                Course Manager - Your own library</h2>
+            <h5 style={headerStyle}>
+                Course Manager - Your own library</h5>
         )
     }
 }

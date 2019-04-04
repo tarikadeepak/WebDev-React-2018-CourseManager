@@ -2,12 +2,13 @@ import React from 'react'
 import CourseService from '../services/CourseService';
 import CourseCardComponent from './CourseCardComponent';
 import UploadImage from './UploadImage';
+import Loginscreen from '../AppLogin/Loginscreen';
  
 export default class CourseCard
     extends React.Component {
 
-    constructor() {
-        super()
+    constructor(props) {
+        super(props);
         this.courseService = CourseService.instance;
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
@@ -18,17 +19,15 @@ export default class CourseCard
             course: { title: ''},
             titleLable: 'title',
             imageSelected: [],
+            userName:''
         };
     }
-
-    componentWillMount() {
-        this.findAllCourses()
-    }
-
+ 
     componentDidMount() {
+        this.setState({ userName: this.props.match.params.userName});
         this.findAllCourses()
     }
-
+    
     findAllCourses() {
         this.courseService.findAllCourses()
             .then((courses) => {
@@ -51,13 +50,14 @@ export default class CourseCard
     }
 
     renderCourseRows(handler) {
+        let userName=this.state.userName;
         let courses = null;
          if (this.state) {
             const elements = this.state.courses.map(
                 function (course) {
                     return (
                         <div className="col-3" style={{ width: '300', height: '200' }} key={course.id}>
-                           <CourseCardComponent  title={course.title} 
+                           <CourseCardComponent  title={course.title} userId={userName} 
                             courseId={course.id} handler = {handler} /> 
                         </div>
                     )
@@ -81,22 +81,24 @@ export default class CourseCard
     }
 
     createCourse() {
+        
         this.courseService
         .createCourse(this.state.course)
         .then(() => { this.findAllCourses(); })
-        
-        console.log("Display1")
     }
     
     keyPress(e){
         if(e.keyCode === 13){
             this.createCourse();
+            
         }
      }
   
     render() {
+        
         return (
             <div>
+                <h3>Hello {this.state.userName}</h3>
                 <div className="row">
                     <div className="col-2">
                         <input className="form-control"
@@ -110,6 +112,7 @@ export default class CourseCard
                                 }/>
                         {/* <UploadImage title={this.state.course.title}/>                             */}
                         <button className="btn btn-primary btn-block"
+                            style={{marginTop:"10px"}}
                             onClick={this.createCourse}>
                             <i className="fa fa-plus"></i>
                         </button>
