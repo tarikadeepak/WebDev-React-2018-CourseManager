@@ -2,7 +2,7 @@ import React from 'react'
 import CourseService from '../services/CourseService';
 import CourseCardComponent from './CourseCardComponent';
 import UploadImage from './UploadImage';
-import Loginscreen from '../AppLogin/Loginscreen';
+import {connect } from 'react-redux'
  
 export default class CourseCard
     extends React.Component {
@@ -19,12 +19,14 @@ export default class CourseCard
             course: { title: ''},
             titleLable: 'title',
             imageSelected: [],
-            userName:''
+            userName:'',
+            firstName:''
         };
     }
  
     componentDidMount() {
         this.setState({ userName: this.props.match.params.userName});
+        this.setState({ firstName: this.props.firstName});
         this.findAllCourses()
     }
     
@@ -98,7 +100,7 @@ export default class CourseCard
         
         return (
             <div>
-                <h3>Hello {this.state.userName}</h3>
+                <h3>Hello {this.state.userName} {this.state.firstName}</h3>
                 <div className="row">
                     <div className="col-2">
                         <input className="form-control"
@@ -125,3 +127,16 @@ export default class CourseCard
         )
     }
 }
+const stateToPropsMapper = (loginReducer) => (
+    {
+        id: loginReducer.userDetails.id,
+        email: loginReducer.userDetails.email,
+        password: loginReducer.userDetails.password,
+        firstName:loginReducer.firstName,
+        lastName:loginReducer.userDetails.lastName,
+
+    }
+)
+
+export const CourseCardContainer = connect(stateToPropsMapper,
+    null)(CourseCard)

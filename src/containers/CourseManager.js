@@ -2,9 +2,9 @@ import React from 'react';
 import CourseEditor from './CourseEditor';
 import Header from '../components/Header'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import CourseCard from '../components/CourseCard';
+import CourseCardContainer from '../components/CourseCard';
 import Background from '../resources/images/library4.jpg'
-import Loginscreen from '../AppLogin/Loginscreen';
+import LoginContainer from '../AppLogin/Login';
 import Register from '../AppLogin/Register';
 import Login from '../AppLogin/Login';
 
@@ -33,12 +33,12 @@ export default class CourseManager
                 <div className="container-fluid" >
                     <Header></Header>
                     <Route exact path="/login"
-                        component={Login} />
+                        component={LoginContainer} />
                         <Route exact path="/registration"
                         component={Register} />
                     <div style={styles}>
-                    <Route exact path="/courses/:userName"
-                        component={CourseCard} />
+                    <Route exact path="/courses/:userId"
+                        component={CourseCardContainer} />
                     <Route exact path="/course/:userId/:courseId/:title"
                         component={CourseEditor} />
                     </div>

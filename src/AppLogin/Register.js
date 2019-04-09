@@ -4,7 +4,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Login from './Login';
-import { Link } from 'react-router-dom';
+//import { Link } from 'react-router-dom';
 // Refrence - https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede
 class Register extends Component {
   constructor(props){
@@ -155,9 +155,9 @@ handleClick(event){
            <br/>
            <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
            <br/>
-           <Link style={{marginLeft:70}} to={`/login`}>
+           {/* <Link style={{marginLeft:70}} to={`/login`}>
               Already Registered?
-            </Link>
+            </Link> */}
           </div>
           
          </MuiThemeProvider>

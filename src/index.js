@@ -1,13 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import CourseManager from './containers/CourseManager'
-import UploadImage from './components/UploadImage'
 import '../node_modules/bootstrap/dist/css/bootstrap.css'
-import Loginscreen from './AppLogin/Loginscreen'
 import '../node_modules/font-awesome/css/font-awesome.min.css'
+import { createStore } from 'redux';
+import { Provider} from 'react-redux'
+import {LoginReducer} from './reducers/LoginReducer'
+import {App} from './AppLogin/Login'
+import CourseManager from './containers/CourseManager';
 
-ReactDOM.render(
-    <CourseManager/>,
- //       <Loginscreen/>,
-    document.getElementById('root')
+export let store = createStore(LoginReducer);
+
+ReactDOM.render(     
+<Provider store={store}>
+    <CourseManager />
+</Provider>,
+document.getElementById('root')
 );
