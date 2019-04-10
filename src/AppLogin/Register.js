@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import Login from './Login';
-//import { Link } from 'react-router-dom';
-// Refrence - https://medium.com/technoetics/create-basic-login-forms-using-create-react-app-module-in-reactjs-511b9790dede
+import {inputStyle, formStyle} from '../styles/index';
+import { Link } from 'react-router-dom';
+
 class Register extends Component {
   constructor(props){
     super(props);
@@ -58,88 +56,58 @@ handleClick(event){
     })
     }
     )}
-  //   axios.post(apiBaseUrl+'/register', payload)
-  //  .then(function (response) {
-  //    console.log(response);
-  //    if(response.data.code == 200){
-  //     //  console.log("registration successfull");
-  //      var loginscreen=[];
-  //      loginscreen.push(<Login parentContext={this}/>);
-  //      var loginmessage = "Not Registered yet.Go to registration";
-  //      self.props.parentContext.setState({loginscreen:loginscreen,
-  //      loginmessage:loginmessage,
-  //      buttonLabel:"Register",
-  //      isLogin:true
-  //       });
-  //    }
-  //  })
-  //console.log('Registered Successfully')
-  //  .catch(function (error) {
-  //    console.log(error);
-  //  });
-  }
+    }
 
   render() {
     return (
       <div>
         <MuiThemeProvider>
-          <div style={{marginLeft:'850px', 
-                  marginRight:'100px',
-                  marginTop:'50px', 
-                  border: '3px solid #f1f1f1', 
-                  backgroundColor:'white',
-                  padding:'20px'}}>   
-                 
-          {/* <AppBar
-             title="Register"
-           /> */}
-           <TextField
-             hintText="Enter your First Name"
-             floatingLabelText="First Name"
-             value={this.state.first_name}
-             onChange = {(event,newValue) => this.setState({first_name:newValue})}
-             onKeyDown={(e) => 
-              {
-                  if(e.keyCode === 13) {
-                      this.handleClick() 
+        <div style={formStyle}>
+            <input class="TextField" style={inputStyle}
+                hintText="Enter your First Name"
+                placeholder=" First Name"
+                value={this.state.first_name}
+                onChange = {(event,newValue) => this.setState({first_name:newValue})}
+                onKeyDown={(e) => 
+                  {
+                      if(e.keyCode === 13) {
+                          this.handleClick() 
+                      }
                   }
-              }
             }
              />
-           <br/>
-           <TextField
-             hintText="Enter your Last Name"
-             floatingLabelText="Last Name"
-             value={this.state.last_name}
-             onChange = {(event,newValue) => this.setState({last_name:newValue})}
-             onKeyDown={(e) => 
-              {
-                  if(e.keyCode === 13) {
-                      this.handleClick() 
-                  }
+            <br/>
+            <input class="TextField" style={inputStyle}
+              hintText="Enter your Last Name"
+              placeholder=" Last Name"
+              value={this.state.last_name}
+              onChange = {(event,newValue) => this.setState({last_name:newValue})}
+              onKeyDown={(e) => 
+                {
+                    if(e.keyCode === 13) {
+                        this.handleClick() 
+                    }
+                }
               }
-            }
-             />
-           <br/>
-           <TextField
-             hintText="Enter your Email"
-             type="email"
-             value={this.state.email}
-             floatingLabelText="Email"
-             onChange = {(event,newValue) => this.setState({email:newValue})}
-             onKeyDown={(e) => 
-              {
-                  if(e.keyCode === 13) {
-                      this.handleClick() 
-                  }
+            />
+            <br/>
+            <input class="TextField" style={inputStyle}
+              type="email"
+              value={this.state.email}
+              placeholder=" Email"
+              onChange = {(event,newValue) => this.setState({email:newValue})}
+              onKeyDown={(e) => 
+                {
+                    if(e.keyCode === 13) {
+                        this.handleClick() 
+                    }
+                }
               }
-            }
-             />
-           <br/>
-           <TextField
-              type = "password"
+            />
+            <br/>
+            <input class="TextField" style={inputStyle}
               hintText="Enter your Password"
-              floatingLabelText="Password"
+              placeholder=" Password"
               value={this.state.password}
               onChange = {(event,newValue) => this.setState({password:newValue})}
               onKeyDown={(e) => 
@@ -150,16 +118,15 @@ handleClick(event){
                 }
               }
             />
-             <br/>
-                        <span>{this.state.errorMsg}</span>
-           <br/>
-           <RaisedButton label="Submit" primary={true} style={style} onClick={(event) => this.handleClick(event)}/>
-           <br/>
-           {/* <Link style={{marginLeft:70}} to={`/login`}>
+            <br/>
+            <span>{this.state.errorMsg}</span>
+            <br/>
+            <RaisedButton label="Submit" primary={true} style={{marginLeft: 120}} onClick={(event) => this.handleClick(event)}/>
+            <br/>
+            <Link style={{marginLeft:100}} to={`/login`}>
               Already Registered?
-            </Link> */}
+            </Link>
           </div>
-          
          </MuiThemeProvider>
          <div>
          <br/>
@@ -173,7 +140,4 @@ handleClick(event){
     );
   }
 }
-const style = {
-  marginLeft: 100,
-};
 export default Register;

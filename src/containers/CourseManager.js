@@ -20,10 +20,6 @@ export default class CourseManager
     extends React.Component {
         constructor(props){
             super(props);
-            this.state={
-              loginPage:[],
-              CourseManager:[]
-            }
           }
           
     render() {

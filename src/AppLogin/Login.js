@@ -5,7 +5,7 @@ import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleClick, handleEmailChange, handlePasswordChange } from '../actions/index';
-
+import {inputStyle, formStyle} from '../styles/index'
 const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, password, firstName, msg }) => {
     let emailElem;
     let passwordElem;
@@ -13,52 +13,37 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
     return (
         <div>
             <MuiThemeProvider>
-
-                <div style={{
-                    marginLeft: '850px',
-                    marginRight: '100px',
-                    marginTop: '50px',
-                    border: '3px solid #f1f1f1',
-                    backgroundColor: 'white',
-                    padding: '20px'
-                }}>
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input class="form-control"
-                            placeholder="email"
-                            value={email}
-                            ref={node => emailElem = node}
-                            onChange={({ target: { value } }) => handleEmailChange(value)}
-                            onKeyDown={(e) => {
-                                if (e.keyCode === 13) {
-                                    handleClick(emailElem.value, passwordElem.value)
-                                }
-                            }}
-                        />
-                    </div>
+                <div style={formStyle}>
+                    <input class="TextField" style={inputStyle}
+                        placeholder=" Email"
+                        value={email}
+                        ref={node => emailElem = node}
+                        onChange={({ target: { value } }) => handleEmailChange(value)}
+                        onKeyDown={(e) => {
+                            if (e.keyCode === 13) {
+                                handleClick(emailElem.value, passwordElem.value)
+                            }
+                        }}/>
                     <br />
+                    <input class="TextField" style={inputStyle}
+                        type="password"
+                        placeholder=" Password"
+                        onChange={({ target: { value } }) => handlePasswordChange(value)}
+                        value={password}
+                        ref={node => passwordElem = node}
+                        onKeyDown={(e) => {
+                            if (e.keyCode === 13) {
+                                handleClick(emailElem.value, passwordElem.value)
+                            }
+                        }}/>
                     <br />
-                    <div class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input
-                            type="password"
-                            placeholder="password"
-                            onChange={({ target: { value } }) => handlePasswordChange(value)}
-                            value={password}
-                            ref={node => passwordElem = node}
-                            onKeyDown={(e) => {
-                                if (e.keyCode === 13) {
-                                    handleClick(emailElem.value, passwordElem.value)
-                                }
-                            }}
-                        />
-                    </div>
-                    <br />
+                    
                     {msg}
-                    <br />
+                    
                     <RaisedButton style={{ marginLeft: 105 }} label="Submit" primary={true}
                         onClick={() => handleClick(emailElem.value, passwordElem.value)} />
                     <br />
+                    
                     {<Link style={{ marginLeft: 100 }} to={`/registration`}>
                         Register Here
                         </Link>}
@@ -73,7 +58,10 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
             <br />
             <br />
             <br />
-
+            <br />
+            <br />
+            <br />
+            <br />
         </div>
     );
 }

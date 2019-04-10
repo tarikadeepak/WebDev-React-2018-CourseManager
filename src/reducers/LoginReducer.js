@@ -22,7 +22,6 @@ export const LoginReducer = (state = {userDetails:{id: "",
             return modifiedState
     
         case 'USER_VALIDATION':
-        console.log("Email ", action.email)
         //Read this
         modifiedState = Object.assign({},state)
         var payload = {
@@ -33,7 +32,8 @@ export const LoginReducer = (state = {userDetails:{id: "",
             password: action.password,
             typeOfUser: ""
         }
-
+        console.log('LoginReducer ', action.email)
+        console.log('LoginReducer ', action.password)
         if (payload.email === "" || payload.password === "") {
             modifiedState.userDetails.msg = 'Email or password is missing'
             console.log(modifiedState.userDetails.msg)
@@ -49,7 +49,6 @@ export const LoginReducer = (state = {userDetails:{id: "",
             .then((response)=>response.json())
             .then(payloadResponse => {
                 if (payloadResponse.length !== 0) {
-                        alert('logged in')
                     modifiedState.userDetails.email         = payloadResponse[0].email
                     modifiedState.userDetails.typeOfUser    = payloadResponse[0].typeOfUser
                     modifiedState.userDetails.id            = payloadResponse[0].id
@@ -61,11 +60,11 @@ export const LoginReducer = (state = {userDetails:{id: "",
                     window.location.href = urlCourses
                     
                 } else {
-                    alert ('Invalid credentials')
+                    modifiedState.userDetails.msg = 'Invalid credentials'
                 }
             }).
             catch((error) => {
-                console.log('error ', error)
+                modifiedState.userDetails.msg ='error ' + error
             })
         }
         return modifiedState

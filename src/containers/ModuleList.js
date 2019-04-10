@@ -4,6 +4,8 @@ import ModuleService from '../services/ModuleService'
 import CourseService from '../services/CourseService'
 import { Link } from 'react-router-dom'
 import { CardLink } from 'reactstrap';
+import {moduleTitleStyle} from '../styles/index'
+
 
 export default class ModuleList
     extends React.Component {
@@ -99,12 +101,12 @@ export default class ModuleList
                 </h2>
                 <br />
                 <div class="input-group">
-                <input style={{width: '240px'}} 
+                <input class="TextField" style={moduleTitleStyle}
                     onChange={this.titleChanged}
-                    placeholder="title" />
+                    placeholder=" title" />
                     <span class="input-group-btn">
                     <i className="fa fa-plus" onClick={this.createModule} 
-                        style={{color:'blue', fontSize:23, marginLeft:50}}></i>
+                        style={{color:'blue', fontSize:23, marginLeft:20, marginTop:12}}></i>
                     </span>
                 </div>
                 <br/>
