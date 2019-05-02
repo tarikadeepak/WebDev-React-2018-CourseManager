@@ -1,10 +1,9 @@
 import React from 'react'
 import CourseService from '../services/CourseService';
 import CourseCardComponent from './CourseCardComponent';
-import UploadImage from './UploadImage';
 import {connect } from 'react-redux'
  
-export default class CourseCard
+class CourseCard
     extends React.Component {
 
     constructor(props) {
@@ -25,8 +24,9 @@ export default class CourseCard
     }
  
     componentDidMount() {
-        this.setState({ userName: this.props.match.params.userName});
-        this.setState({ firstName: this.props.firstName});
+        this.setState({ userId: this.props.match.params.userId});
+      //  this.setState({ firstName: this.props.firstName});
+        console.log('ComponentDidMount ', this.state.firstName)
         this.findAllCourses()
     }
     
@@ -52,14 +52,15 @@ export default class CourseCard
     }
 
     renderCourseRows(handler) {
-        let userName=this.state.userName;
+        let userId=this.state.userId;
+        console.log('RenderCourseRow ', userId)
         let courses = null;
          if (this.state) {
             const elements = this.state.courses.map(
                 function (course) {
                     return (
                         <div className="col-3" style={{ width: '300', height: '200' }} key={course.id}>
-                           <CourseCardComponent  title={course.title} userId={userName} 
+                           <CourseCardComponent  title={course.title} userId={userId} 
                             courseId={course.id} handler = {handler} /> 
                         </div>
                     )
@@ -97,10 +98,12 @@ export default class CourseCard
      }
   
     render() {
+      //  this.setState({ firstName: this.props.firstName});
+        console.log('ComponentDidMount ', this.props.loggedIn)
         
         return (
             <div>
-                <h3>Hello {this.state.userName} {this.state.firstName}</h3>
+                <h3>Hello {this.props.firstName} {this.state.firstName}</h3>
                 <div className="row">
                     <div className="col-2">
                         <input className="form-control"
@@ -127,13 +130,22 @@ export default class CourseCard
         )
     }
 }
-const stateToPropsMapper = (loginReducer) => (
+const stateToPropsMapper = (state) => (
     {
-        id: loginReducer.userDetails.id,
-        email: loginReducer.userDetails.email,
-        password: loginReducer.userDetails.password,
-        firstName:loginReducer.firstName,
-        lastName:loginReducer.userDetails.lastName,
+        // id: state.userDetails.id,
+        // email: state.userDetails.email,
+        // password: state.userDetails.password,
+        // firstName: state.userDetails.firstName,
+        // lastName: state.userDetails.lastName,
+        // msg: state.userDetails.msg,
+        // loggedIn: state.userDetails.loggedIn
+
+        id: state.LoginReducer.userDetails.id,
+        email: state.LoginReducer.userDetails.email,
+        password: state.LoginReducer.userDetails.password,
+        firstName:state.LoginReducer.userDetails.firstName,
+        lastName:state.LoginReducer.userDetails.lastName,
+        loggedIn:state.LoginReducer.userDetails.loggedIn,
 
     }
 )

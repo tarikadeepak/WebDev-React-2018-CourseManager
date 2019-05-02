@@ -1,0 +1,46 @@
+import React from 'react';
+import {connect } from 'react-redux'
+import {findAllWidgets, saveWidgets, addWidget} from '../actions/index'
+import {Widget} from '../components/Widget'
+class WidgetList extends React.Component {
+    constructor(props) {
+        super(props)
+        this.props.findAllWidgets()
+    }
+    render() {
+        return (
+            <div>
+                <h1>Widget List {(this.props.widgets.length)}</h1>
+                <button onClick={this.props.saveWidgets}>Save</button>
+                <ul>
+                    {this.props.widgets.map(widget => (
+                        <WidgetContainer widget={widget}
+                            key={widget.id} />
+                    ))}
+                </ul>
+                <button onClick={this.props.addWidget}>Add</button>
+            </div>
+        )
+    }
+}
+
+const WidgetContainer = connect()(Widget)
+
+const stateToPropertiesMapper = (state) => (
+    {
+        widgets: state.WidgetReducer.widgets
+    }
+)
+
+const dispatchToPropertiesMapper 
+= dispatch => ({
+        findAllWidgets: () => findAllWidgets(dispatch),
+        addWidget: () => addWidget(dispatch),
+        saveWidgets: () => saveWidgets(dispatch)
+})
+
+const WidgetListContainer = connect(stateToPropertiesMapper,
+                    dispatchToPropertiesMapper
+                    )(WidgetList)
+
+export default WidgetListContainer

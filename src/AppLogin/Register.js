@@ -14,13 +14,20 @@ class Register extends Component {
       password:'',
       errorMsg:''
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
+handleChange(event){
+  this.setState(
+    { 
+      email: event.target.value
+    }
+  )
+}
+
 handleClick(event){
-    var apiBaseUrl = "http://localhost:4000/api/";
     console.log("values",this.state.first_name,this.state.last_name,this.state.email,this.state.password);
     //To be done:check for empty values before hitting submit
-    var self = this;
     var payload={
     "firstName": this.state.first_name,
     "lastName":this.state.last_name,
@@ -28,10 +35,12 @@ handleClick(event){
     "password":this.state.password,
     "typeOfUser":'Professor'
     }
+    console.log('Register Email : ', payload.email)
     if(payload.email === "" || payload.firstName === "" || payload.lastName === "" || payload.password === ""){
           this.setState({errorMsg:'All fields are mandatory to complete Registration'})
       }else{
       this.setState({errorMsg:''})
+      console.log('Registering ', payload)
     fetch('http://localhost:8080/registration/', {
             method: 'post',
             body: JSON.stringify(payload),
@@ -44,6 +53,7 @@ handleClick(event){
       console.log("Response ", payloadResponse)
       if(payloadResponse.length !== 0){
         alert('User is Registered')
+        console.log('Registered ', payloadResponse)
       }else{
         alert('Error occured in Registration')
       }
@@ -55,7 +65,12 @@ handleClick(event){
         last_name:'',
     })
     }
-    )}
+    )
+    .catch((error) => {
+      console.log(error)
+      this.setState({errorMsg:'Error occured'})
+    })
+    }
     }
 
   render() {
@@ -63,11 +78,14 @@ handleClick(event){
       <div>
         <MuiThemeProvider>
         <div style={formStyle}>
-            <input class="TextField" style={inputStyle}
-                hintText="Enter your First Name"
+            <input className="TextField" style={inputStyle}
                 placeholder=" First Name"
                 value={this.state.first_name}
-                onChange = {(event,newValue) => this.setState({first_name:newValue})}
+                onChange = {(event) => 
+                  {
+                    this.setState({first_name:event.target.value})}
+                  }
+
                 onKeyDown={(e) => 
                   {
                       if(e.keyCode === 13) {
@@ -77,11 +95,13 @@ handleClick(event){
             }
              />
             <br/>
-            <input class="TextField" style={inputStyle}
-              hintText="Enter your Last Name"
+            <input className="TextField" style={inputStyle}
               placeholder=" Last Name"
               value={this.state.last_name}
-              onChange = {(event,newValue) => this.setState({last_name:newValue})}
+              onChange = {(event) => 
+                {
+                  this.setState({last_name:event.target.value})}
+                }
               onKeyDown={(e) => 
                 {
                     if(e.keyCode === 13) {
@@ -91,11 +111,14 @@ handleClick(event){
               }
             />
             <br/>
-            <input class="TextField" style={inputStyle}
+            <input className="TextField" style={inputStyle}
               type="email"
               value={this.state.email}
               placeholder=" Email"
-              onChange = {(event,newValue) => this.setState({email:newValue})}
+              onChange = {(event) => 
+                {
+                  this.setState({email:event.target.value})}
+                }
               onKeyDown={(e) => 
                 {
                     if(e.keyCode === 13) {
@@ -105,11 +128,13 @@ handleClick(event){
               }
             />
             <br/>
-            <input class="TextField" style={inputStyle}
-              hintText="Enter your Password"
+            <input className="TextField" style={inputStyle}
               placeholder=" Password"
               value={this.state.password}
-              onChange = {(event,newValue) => this.setState({password:newValue})}
+              onChange = {(event) => 
+                {
+                  this.setState({password:event.target.value})}
+                }
               onKeyDown={(e) => 
                 {
                     if(e.keyCode === 13) {
@@ -119,10 +144,16 @@ handleClick(event){
               }
             />
             <br/>
+            
             <span>{this.state.errorMsg}</span>
+            
             <br/>
-            <RaisedButton label="Submit" primary={true} style={{marginLeft: 120}} onClick={(event) => this.handleClick(event)}/>
+              <RaisedButton label="Submit" primary={true} 
+                style={{marginLeft: 120}} 
+                onClick={(event) => 
+                  this.handleClick(event)}/>
             <br/>
+            
             <Link style={{marginLeft:100}} to={`/login`}>
               Already Registered?
             </Link>

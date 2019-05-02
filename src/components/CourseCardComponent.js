@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 export default class CourseCardComponent extends React.Component {
     render() {
-        const titleImg=this.props.title;
         const imgUrl="https://s3.amazonaws.com/studyawspollydt.com/titleImg.jpg"
         
          return (

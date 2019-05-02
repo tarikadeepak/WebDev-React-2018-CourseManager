@@ -1,6 +1,6 @@
 import React from 'react'
 import ModuleList from './ModuleList'
-import LessonTabs from './LessonTabs'
+import WidgetListContainer from './WidgetList'
 export default class CourseEditor extends React.Component {
 
     constructor(props) {
@@ -26,7 +26,7 @@ export default class CourseEditor extends React.Component {
                         <ModuleList courseId={this.state.courseId} title={this.state.title} userId={this.state.userId} />
                     </div>
                     <div className="col-9">
-                        <LessonTabs />
+                        <WidgetListContainer />
                     </div>
                 </div>
             </div>

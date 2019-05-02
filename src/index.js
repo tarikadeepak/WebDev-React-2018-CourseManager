@@ -4,15 +4,15 @@ import '../node_modules/bootstrap/dist/css/bootstrap.css'
 import '../node_modules/font-awesome/css/font-awesome.min.css'
 import { createStore } from 'redux';
 import { Provider} from 'react-redux'
+import RootReducer from './reducers/RootReducer'
+import App from './containers/CourseManager';
 import {LoginReducer} from './reducers/LoginReducer'
-import {App} from './AppLogin/Login'
-import CourseManager from './containers/CourseManager';
 
-export let store = createStore(LoginReducer);
+export let store = createStore(RootReducer);
 
 ReactDOM.render(     
 <Provider store={store}>
-    <CourseManager />
+    <App />
 </Provider>,
 document.getElementById('root')
 );

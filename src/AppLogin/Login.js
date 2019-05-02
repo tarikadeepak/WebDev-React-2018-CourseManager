@@ -1,20 +1,34 @@
 import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
 import { Link } from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleClick, handleEmailChange, handlePasswordChange } from '../actions/index';
 import {inputStyle, formStyle} from '../styles/index'
-const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, password, firstName, msg }) => {
+import Background from '../resources/images/library4.jpg'
+
+var styles = {
+   
+        backgroundImage: "url(" + Background + ")",
+        overflow: 'hidden',
+        height: '100%',         
+        backgroundSize:'100%'
+}
+const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, password, msg, id, loggedIn }) => {
     let emailElem;
     let passwordElem;
-    console.log("Hello ", firstName)
+    if (loggedIn){
+        console.log("LoggedIn")
+        let url = '/courses/' + id
+        return <Redirect to={url}></Redirect>
+    }
+    
     return (
-        <div>
+        <div style={styles}>
             <MuiThemeProvider>
                 <div style={formStyle}>
-                    <input class="TextField" style={inputStyle}
+                    <input className="TextField" style={inputStyle}
                         placeholder=" Email"
                         value={email}
                         ref={node => emailElem = node}
@@ -25,7 +39,7 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
                             }
                         }}/>
                     <br />
-                    <input class="TextField" style={inputStyle}
+                    <input className="TextField" style={inputStyle}
                         type="password"
                         placeholder=" Password"
                         onChange={({ target: { value } }) => handlePasswordChange(value)}
@@ -66,14 +80,23 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
     );
 }
 
-const stateToPropsMapper = (loginReducer) => (
+const stateToPropsMapper = (state) => (
     {
-        id: loginReducer.userDetails.id,
-        email: loginReducer.userDetails.email,
-        password: loginReducer.userDetails.password,
-        firstName: loginReducer.firstName,
-        lastName: loginReducer.userDetails.lastName,
-        msg: loginReducer.userDetails.msg
+        // id: state.userDetails.id,
+        // email: state.userDetails.email,
+        // password: state.userDetails.password,
+        // firstName: state.userDetails.firstName,
+        // lastName: state.userDetails.lastName,
+        // msg: state.userDetails.msg,
+        // loggedIn: state.userDetails.loggedIn
+
+        id: state.LoginReducer.userDetails.id,
+        email: state.LoginReducer.userDetails.email,
+        password: state.LoginReducer.userDetails.password,
+        firstName: state.LoginReducer.firstName,
+        lastName: state.LoginReducer.userDetails.lastName,
+        msg: state.LoginReducer.userDetails.msg,
+        loggedIn: state.LoginReducer.userDetails.loggedIn
 
     }
 )

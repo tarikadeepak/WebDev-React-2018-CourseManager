@@ -1,13 +1,42 @@
 
-export const LoginReducer = (state = {userDetails:{id: "",
-            firstName: '',
-            lastName: '',
-            email: '',
-            password: '',
-            typeOfUser: '',
-            msg: ''}}, action) => {
+const initialState = {userDetails:{id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    typeOfUser: '',
+    msg:'',
+    loggedIn:false
+    }
+}
+
+export const LoginReducer = (state=initialState, action) => {
+    // if (typeof state === 'undefined') {
+    //     console.log('Inside Undefined state ', action.type)
+    //     return initialState
+    //   }
     let modifiedState;
     switch (action.type) {
+        case 'LOGOUT': 
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.loggedIn = false
+            return modifiedState
+            
+        case 'CREDENTIALS_MISSING': 
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.msg = 'Email or password is missing'
+            return modifiedState
+        
+        case 'CREDENTIALS_INVALID': 
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.msg = 'Invalid credentials'
+            return modifiedState
+            
+        case 'LOGIN_EXCEPTION': 
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.msg = action.error.message
+            return modifiedState
+            
         case 'EMAIL_CHANGE':
         console.log('action ', action)
             modifiedState = Object.assign({}, state);
@@ -21,55 +50,21 @@ export const LoginReducer = (state = {userDetails:{id: "",
             console.log('EMAIL_CHANGE ', action.password)
             return modifiedState
     
-        case 'USER_VALIDATION':
+        case 'CREDENTIALS_VALID':
         //Read this
-        modifiedState = Object.assign({},state)
-        var payload = {
-            id: "",
-            firstName: "",
-            lastName: "",
-            email: action.email,
-            password: action.password,
-            typeOfUser: ""
-        }
-        console.log('LoginReducer ', action.email)
-        console.log('LoginReducer ', action.password)
-        if (payload.email === "" || payload.password === "") {
-            modifiedState.userDetails.msg = 'Email or password is missing'
-            console.log(modifiedState.userDetails.msg)
-            return modifiedState;
-        } else {
-            fetch('http://localhost:8080/login/', {
-                method: 'post',
-                headers: {
-                    'content-type': 'application/JSON'
-                },
-                body: JSON.stringify(payload)
-            })
-            .then((response)=>response.json())
-            .then(payloadResponse => {
-                if (payloadResponse.length !== 0) {
-                    modifiedState.userDetails.email         = payloadResponse[0].email
-                    modifiedState.userDetails.typeOfUser    = payloadResponse[0].typeOfUser
-                    modifiedState.userDetails.id            = payloadResponse[0].id
-                    modifiedState.userDetails.password      = payloadResponse[0].password    
-                    modifiedState.userDetails.firstName     = payloadResponse[0].firstName
-                    modifiedState.userDetails.lastName      = payloadResponse[0].lastName
-                    console.log('Response ', payloadResponse[0].email);
-                    var urlCourses = '/courses/' + payloadResponse[0].id;
-                    window.location.href = urlCourses
-                    
-                } else {
-                    modifiedState.userDetails.msg = 'Invalid credentials'
-                }
-            }).
-            catch((error) => {
-                modifiedState.userDetails.msg ='error ' + error
-            })
-        }
-        return modifiedState
+            modifiedState = Object.assign({},state)
+            modifiedState.userDetails.email         = action.payloadResponse[0].email
+            modifiedState.userDetails.typeOfUser    = action.payloadResponse[0].typeOfUser
+            modifiedState.userDetails.id            = action.payloadResponse[0].id
+            modifiedState.userDetails.password      = action.payloadResponse[0].password    
+            modifiedState.userDetails.firstName     = action.payloadResponse[0].firstName
+            modifiedState.userDetails.lastName      = action.payloadResponse[0].lastName
+            modifiedState.userDetails.loggedIn      = true
+            console.log('Authentication ', modifiedState.userDetails.lastName, ' ', action.payloadResponse[0].firstName);
+             return modifiedState
         
         default:
+            console.log('LoginReducer Action ', state)
             return state
     }
 }

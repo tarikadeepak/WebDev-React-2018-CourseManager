@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { UseUploadService } from '../services/UseUploadService';
-import holderjs from 'react-holder'
 
 export default class UploadImage extends Component {
     constructor() {
