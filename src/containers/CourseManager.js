@@ -8,8 +8,6 @@ import LoginContainer from '../AppLogin/Login';
 import Register from '../AppLogin/Register';
 
 var styles = {
-   
-//        backgroundImage: "url(" + Background + ")",
         overflow: 'hidden',
         height: '100%',         
         backgroundSize:'100%'
@@ -41,8 +39,8 @@ const CourseManager = ({loggedIn, firstName}) =>{
                     <div style={styles}>
                     <PrivateRoute exact path="/courses/:userId"
                         component={CourseCardContainer} isAuthenticated={isAuthenticated}/>
-                    <Route exact path="/course/:userId/:courseId/:title"
-                        component={CourseEditor} />
+                    <PrivateRoute exact path="/course/:userId/:courseId/:title"
+                        component={CourseEditor}  isAuthenticated={isAuthenticated}/>
                     </div>
                 </div>
                 </div>
@@ -57,17 +55,7 @@ const stateToPropsMapper = (state) => (
         password: state.LoginReducer.userDetails.password,
         firstName:state.LoginReducer.userDetails.firstName,
         lastName:state.LoginReducer.userDetails.lastName,
-        loggedIn:state.LoginReducer.userDetails.loggedIn,
-
-        // id: state.userDetails.id,
-        // email: state.userDetails.email,
-        // password: state.userDetails.password,
-        // firstName: state.userDetails.firstName,
-        // lastName: state.userDetails.lastName,
-        // msg: state.userDetails.msg,
-        // loggedIn: state.userDetails.loggedIn
-
-        //loggedIn: state.LoginReducer.userDetails.loggedIn
+        loggedIn:state.LoginReducer.userDetails.loggedIn
     }
 )
 

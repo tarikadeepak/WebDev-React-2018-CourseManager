@@ -1,5 +1,5 @@
 let _singleton = Symbol();
-let MODULE_API_URL = 'http://localhost:8080/api/course';
+let MODULE_API_URL = 'https://webdev-summer-2018-dt.herokuapp.com/api/course';
 class ModuleService {
     constructor(singletonToken) {
         if (_singleton !== singletonToken)

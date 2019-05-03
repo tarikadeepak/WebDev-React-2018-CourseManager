@@ -11,20 +11,28 @@ const initialState = {userDetails:{id: '',
 }
 
 export const LoginReducer = (state=initialState, action) => {
-    // if (typeof state === 'undefined') {
-    //     console.log('Inside Undefined state ', action.type)
-    //     return initialState
-    //   }
+
     let modifiedState;
+    console.log('Action Login Reducer ', action.type)
     switch (action.type) {
         case 'LOGOUT': 
+            console.log('Logout');
             modifiedState = Object.assign({}, state);
             modifiedState.userDetails.loggedIn = false
+            modifiedState.userDetails.firstName = ''
+            modifiedState.userDetails.lastName = ''
+            modifiedState.userDetails.email = ''
+            modifiedState.userDetails.password = ''
             return modifiedState
             
         case 'CREDENTIALS_MISSING': 
             modifiedState = Object.assign({}, state);
             modifiedState.userDetails.msg = 'Email or password is missing'
+            return modifiedState
+        
+        case 'REGISTRATION_MISSING_FIELDS': 
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.msg = 'All fields are mandatory'
             return modifiedState
         
         case 'CREDENTIALS_INVALID': 
@@ -36,7 +44,21 @@ export const LoginReducer = (state=initialState, action) => {
             modifiedState = Object.assign({}, state);
             modifiedState.userDetails.msg = action.error.message
             return modifiedState
-            
+
+        case 'FIRSTNAME_CHANGE':
+            console.log('action ', action)
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.firstName = action.firstName;
+            console.log('FIRSTNAME_CHANGE ', action.firstName)
+            return modifiedState
+        
+        case 'LASTNAME_CHANGE':
+        console.log('action ', action)
+            modifiedState = Object.assign({}, state);
+            modifiedState.userDetails.lastName = action.lastName;
+            console.log('LASTNAME_CHANGE ', action.lastName)
+            return modifiedState
+
         case 'EMAIL_CHANGE':
         console.log('action ', action)
             modifiedState = Object.assign({}, state);

@@ -25,8 +25,6 @@ class CourseCard
  
     componentDidMount() {
         this.setState({ userId: this.props.match.params.userId});
-      //  this.setState({ firstName: this.props.firstName});
-        console.log('ComponentDidMount ', this.state.firstName)
         this.findAllCourses()
     }
     
@@ -132,14 +130,6 @@ class CourseCard
 }
 const stateToPropsMapper = (state) => (
     {
-        // id: state.userDetails.id,
-        // email: state.userDetails.email,
-        // password: state.userDetails.password,
-        // firstName: state.userDetails.firstName,
-        // lastName: state.userDetails.lastName,
-        // msg: state.userDetails.msg,
-        // loggedIn: state.userDetails.loggedIn
-
         id: state.LoginReducer.userDetails.id,
         email: state.LoginReducer.userDetails.email,
         password: state.LoginReducer.userDetails.password,

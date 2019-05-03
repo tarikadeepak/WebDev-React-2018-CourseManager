@@ -4,8 +4,8 @@ import {UserReducer} from './UserReducer'
 import {combineReducers} from 'redux'
 
 const RootReducer = combineReducers({
-    WidgetReducer: WidgetReducer,   
     LoginReducer: LoginReducer,
+    WidgetReducer: WidgetReducer,   
     UserReducer: UserReducer
 });
 export default RootReducer

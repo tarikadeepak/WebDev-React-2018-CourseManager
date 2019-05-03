@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom'
 import {Redirect} from 'react-router-dom'
 import { connect } from 'react-redux'
-import { handleClick, handleEmailChange, handlePasswordChange } from '../actions/index';
+import { handleLogin, handleEmailChange, handlePasswordChange } from '../actions/index';
 import {inputStyle, formStyle} from '../styles/index'
 import Background from '../resources/images/library4.jpg'
 
@@ -15,7 +15,7 @@ var styles = {
         height: '100%',         
         backgroundSize:'100%'
 }
-const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, password, msg, id, loggedIn }) => {
+const Login = ({ handleLogin, handleEmailChange, handlePasswordChange, email, password, msg, id, loggedIn }) => {
     let emailElem;
     let passwordElem;
     if (loggedIn){
@@ -35,7 +35,7 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
                         onChange={({ target: { value } }) => handleEmailChange(value)}
                         onKeyDown={(e) => {
                             if (e.keyCode === 13) {
-                                handleClick(emailElem.value, passwordElem.value)
+                                handleLogin(emailElem.value, passwordElem.value)
                             }
                         }}/>
                     <br />
@@ -47,7 +47,7 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
                         ref={node => passwordElem = node}
                         onKeyDown={(e) => {
                             if (e.keyCode === 13) {
-                                handleClick(emailElem.value, passwordElem.value)
+                                handleLogin(emailElem.value, passwordElem.value)
                             }
                         }}/>
                     <br />
@@ -55,7 +55,7 @@ const Login = ({ handleClick, handleEmailChange, handlePasswordChange, email, pa
                     {msg}
                     
                     <RaisedButton style={{ marginLeft: 105 }} label="Submit" primary={true}
-                        onClick={() => handleClick(emailElem.value, passwordElem.value)} />
+                        onClick={() => handleLogin(emailElem.value, passwordElem.value)} />
                     <br />
                     
                     {<Link style={{ marginLeft: 100 }} to={`/registration`}>
@@ -104,7 +104,7 @@ const stateToPropsMapper = (state) => (
 const dispatchToPropsMapper = dispatch => ({
     handleEmailChange: (email) => handleEmailChange(dispatch, email),
     handlePasswordChange: (password) => handlePasswordChange(dispatch, password),
-    handleClick: (email, password) => handleClick(dispatch, email, password)
+    handleLogin: (email, password) => handleLogin(dispatch, email, password)
 })
 
 export const LoginContainer = connect(stateToPropsMapper,

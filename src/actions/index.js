@@ -1,6 +1,23 @@
 import {SAVE_WIDGETS, ADD_WIDGET, FIND_ALL_WIDGETS, HEADING_SIZE_CHANGED, HEADING_TEXT_CHANGED} from '../constants/index'
 
-export const handleClick = (dispatch, email, password) => {
+export const handleFirstNameChange = (dispatch, firstName) => {
+    console.log("FIRSTNAME CHANGE ", firstName)
+    dispatch({type: 'FIRSTNAME_CHANGE', firstName: firstName})
+}
+
+export const handleLastNameChange = (dispatch, lastName) => (
+    dispatch({type: 'LASTNAME_CHANGE', lastName: lastName})
+)
+
+export const handleEmailChange = (dispatch, email) => (
+    dispatch({type: 'EMAIL_CHANGE', email: email})
+)
+
+export const handlePasswordChange = (dispatch, password) => (
+    dispatch({type: 'PASSWORD_CHANGE', password: password })
+)
+
+export const handleLogin = (dispatch, email, password) => {
     var payload = {
         id: "",
         firstName: "",
@@ -13,7 +30,7 @@ export const handleClick = (dispatch, email, password) => {
     if (email === "" || password === "") {
         dispatch({type: 'CREDENTIALS_MISSING', email: email, password: password })
     } else {
-        fetch('http://localhost:8080/login/', {
+        fetch('https://webdev-summer-2018-dt.herokuapp.com/login/', {
             method: 'post',
             headers: {
                 'content-type': 'application/JSON'
@@ -34,16 +51,53 @@ export const handleClick = (dispatch, email, password) => {
     }
 }
 
-export const handleEmailChange = (dispatch, email) => (
-    dispatch({type: 'EMAIL_CHANGE', email: email})
-)
+export const handleRegisteration = (dispatch, firstName, lastName, email, password) => {
+    var payload = {
+        id: "",
+        firstName: "",
+        lastName: "",
+        email: email,
+        password: password,
+        typeOfUser: ""
+    }
+    
+    if (firstName === "" || lastName === "" || email === "" || password === "") {
+        dispatch({type: 'REGISTRATION_MISSING_FIELDS', email: email, password: password })
+    } else {
+        fetch('https://webdev-summer-2018-dt.herokuapp.com/registration/', {
+            method: 'post',
+            headers: {
+                'content-type': 'application/JSON'
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(response => (response.json()))
+        .then(payloadResponse => {
+          console.log("Response ", payloadResponse)
+          if (payloadResponse.length !== 0) {
+            alert('User is Registered')
+            console.log('Registered ', payloadResponse)
+          } else {
+            alert('Error occured in Registration')
+          }
+          window.location.href = 'login'
+          this.setState({
+            email: "",
+            password: "",
+            first_name: '',
+            last_name: '',
+          })
+        }
+        )
+        .catch((error) => {
+          console.log(error)
+          dispatch({type: 'LOGIN_EXCEPTION', error:error})
+        })
+    }
+}
 
 export const logout = (dispatch) => (
     dispatch({type: 'LOGOUT'})
-)
-
-export const handlePasswordChange = (dispatch, password) => (
-    dispatch({type: 'PASSWORD_CHANGE', password: password })
 )
 
 export const headingSizeChanged = (dispatch, widgetId, newSize) => (
@@ -55,7 +109,7 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
 )
 
 export const findAllWidgets = dispatch =>{
-    fetch('http://localhost:8080/api/widget')
+    fetch('https://webdev-summer-2018-dt.herokuapp.com/api/widget')
     .then(response => (response.json()))
     .then(widgets => dispatch({
         type:FIND_ALL_WIDGETS,
@@ -69,8 +123,4 @@ export const addWidget = dispatch =>{
 
 export const saveWidgets = dispatch =>{
     dispatch({type : SAVE_WIDGETS})
-}
-
-export const unDefined = dispatch =>{
-    dispatch({type : '@@redux/PROBE_UNKNOWN_ACTION_'})
 }

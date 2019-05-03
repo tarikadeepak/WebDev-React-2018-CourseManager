@@ -11,6 +11,7 @@ export const WidgetReducer = (state = {widgets:[]}, action) => {
                     return Object.assign({},widget)
                 })
             }
+
         case HEADING_TEXT_CHANGED:
         return {
             widgets: state.widgets.map(widget=> {
@@ -20,6 +21,7 @@ export const WidgetReducer = (state = {widgets:[]}, action) => {
                 return Object.assign({},widget)
             })
         }
+
         case 'SELECT_WIDGET_TYPE':
             let newState={
                 widgets:state.widgets.filter((widget) =>{
@@ -30,8 +32,9 @@ export const WidgetReducer = (state = {widgets:[]}, action) => {
                 })
             }
             return JSON.parse(JSON.stringify(newState)) 
+
         case SAVE_WIDGETS:
-        fetch('http://localhost:8080/api/widget/save/', {
+        fetch('https://webdev-summer-2018-dt.herokuapp.com/api/widget/save/', {
             method: 'post',
             body: JSON.stringify(state.widgets),
             headers: {
@@ -39,11 +42,13 @@ export const WidgetReducer = (state = {widgets:[]}, action) => {
             }
             
         )
-        return state
+        return state;
+
         case FIND_ALL_WIDGETS:
         return{
             widgets:action.widgets
         }
+
         case ADD_WIDGET:
             return {
                 widgets: [
@@ -57,12 +62,14 @@ export const WidgetReducer = (state = {widgets:[]}, action) => {
                     }
                 ]
             }
+
         case DELETE_WIDGET:
             return {
                 widgets: state.widgets.filter(widget => {
                     return widget.id !== action.id
                 })
             }
+        
         default:
         console.log('WidgetReducer State ', state)
             return state

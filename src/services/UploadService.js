@@ -7,7 +7,7 @@ constructor() {
   getRestClient() {
     if (!this.serviceInstance) {
       this.serviceInstance = axios.create({
-        baseURL: 'http://localhost:8080/',
+        baseURL: 'https://webdev-summer-2018-dt.herokuapp.com/',
         timeout: 10000,
         headers: {
             'Content-Type': 'application/json'
