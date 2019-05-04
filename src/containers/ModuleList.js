@@ -2,10 +2,11 @@ import React from 'react'
 import ModuleListItem from '../components/ModuleListItem';
 import ModuleService from '../services/ModuleService'
 import CourseService from '../services/CourseService'
+import CourseEditor  from './CourseEditor'
 import { Link } from 'react-router-dom'
 import { CardLink } from 'reactstrap';
 import {moduleTitleStyle} from '../styles/index'
-
+import WidgetListContainer from './WidgetList'
 
 export default class ModuleList
     extends React.Component {
@@ -25,19 +26,18 @@ export default class ModuleList
             modules: []
         };
     }
+
     setCourse(courseId, title) {
         this.setState({ courseId: courseId })
         this.setState({ title: title })
     }
-    componentDidMount() {
-        console.log("Title in DidMount " + this.props.title)
-        this.setCourse(this.props.courseId, this.props.title)
 
-    }
-    componentWillReceiveProps(newProps) {
+   componentWillReceiveProps(newProps) {
+        console.log('Module List')
         this.setCourse(newProps.courseId, newProps.title)
         this.findModulesByCourseId(newProps.courseId)
     }
+
     findModulesByCourseId(courseId) {
         this.moduleService.findModulesByCourseId(courseId)
             .then((modules) => {
@@ -51,15 +51,32 @@ export default class ModuleList
             .then(() => { this.findModulesByCourseId(this.props.courseId); })
     }
 
-    handler(moduleId) {
-        console.log('Back to handler ' + moduleId)
-        this.deleteModule(moduleId);
+    handler(moduleId, isDelete) {
+        if (isDelete === true){
+            this.deleteModule(moduleId);
+        }else{
+            console.log('Module Id  ', moduleId)
+            return <WidgetListContainer />
+        }
     }
 
     renderListOfModules(courseId, handler) {
         let modules = this.state.modules.map(function (module) {
-            return <ModuleListItem key={module.id} title={module.title}
-                courseId={courseId} moduleId={module.id} handler={handler} />
+            return  <div>
+                        <li className="list-group-item" style={{paddingBottom:10}}>
+                            <div onClick={() => handler(module.id,false)}>
+                                {module.title}
+                            </div>
+                            <span className="float-right">
+                            <i className="fa fa-trash" onClick={() => 
+                                handler(module.id,true)}/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <i className="fa fa-pencil"></i>
+                            </span>
+                        </li>
+                    </div> 
+            // <ModuleListItem key={module.id} title={module.title}
+            //     courseId={courseId} moduleId={module.id} handler={handler} />
         }
         )
         return modules;
@@ -100,18 +117,18 @@ export default class ModuleList
                     </Link>
                 </h2>
                 <br />
-                <div class="input-group">
-                <input class="TextField" style={moduleTitleStyle}
+                <div className="input-group">
+                <input className="TextField" style={moduleTitleStyle}
                     onChange={this.titleChanged}
                     placeholder=" title" />
-                    <span class="input-group-btn">
+                    <span className="input-group-btn">
                     <i className="fa fa-plus" onClick={this.createModule} 
                         style={{color:'blue', fontSize:23, marginLeft:20, marginTop:12}}></i>
                     </span>
                 </div>
                 <br/>
                 <ul className="list-group">
-                    {this.renderListOfModules(this.state.courseId, this.handler)}
+                    {this.renderListOfModules(this.state.courseId, this.props.handler)}
                 </ul>
             </div>
         );

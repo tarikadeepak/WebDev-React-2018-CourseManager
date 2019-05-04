@@ -5,9 +5,10 @@ import {Widget} from '../components/Widget'
 class WidgetList extends React.Component {
     constructor(props) {
         super(props)
-        this.props.findAllWidgets()
+        this.props.findAllWidgets(this.props.moduleId)
     }
     render() {
+        console.log("WL Module Id ", this.props.moduleId)
         return (
             <div>
                 <h1>Widget List {(this.props.widgets.length)}</h1>
@@ -34,7 +35,7 @@ const stateToPropertiesMapper = (state) => (
 
 const dispatchToPropertiesMapper 
 = dispatch => ({
-        findAllWidgets: () => findAllWidgets(dispatch),
+        findAllWidgets: (moduleId) => findAllWidgets(dispatch, moduleId),
         addWidget: () => addWidget(dispatch),
         saveWidgets: () => saveWidgets(dispatch)
 })

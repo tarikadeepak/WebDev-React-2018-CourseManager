@@ -108,8 +108,10 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
     dispatch({type: HEADING_TEXT_CHANGED, id: widgetId, text: newText })
 )
 
-export const findAllWidgets = dispatch =>{
-    fetch('https://webdev-summer-2018-dt.herokuapp.com/api/widget')
+export const findAllWidgets = (dispatch, moduleId) =>{
+    console.log('Index ', moduleId)
+    let url = 'https://webdev-summer-2018-dt.herokuapp.com/api/widget'.concat('/').concat(moduleId);
+    fetch(url)
     .then(response => (response.json()))
     .then(widgets => dispatch({
         type:FIND_ALL_WIDGETS,
