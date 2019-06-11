@@ -1,27 +1,27 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {logout} from '../actions/index'
+import { logout } from '../actions/index'
 
 var headerStyle = {
     background: "#000066",
     padding: "15px",
     margin: '0px',
-    width:'100%',
+    width: '100%',
     textAlign: "Left",
-    color:"white",
-    display:'inline-block'
+    color: "white",
+    display: 'inline-block',
+    left:0
 };
 
 class Header
     extends React.Component {
     render() {
-        return (<div>
+        return (
             <h5 style={headerStyle}>
                 Course Manager - Your own library
-                <button style={{float:'Right'}}
-                onClick={() => this.props.logout()}>Logout</button>
+                <button style={{ float: 'Right' }}
+                    onClick={() => this.props.logout()}>Logout</button>
             </h5>
-            </div>
         )
     }
 }

@@ -2,32 +2,34 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Link } from 'react-router-dom'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { handleLogin, handleEmailChange, handlePasswordChange } from '../actions/index';
-import {inputStyle, formStyle} from '../styles/index'
+import { inputStyle, loginStyle } from '../styles/index'
 import Background from '../resources/images/library4.jpg'
 
 var styles = {
-   
-        backgroundImage: "url(" + Background + ")",
-        overflow: 'hidden',
-        height: '100%',         
-        backgroundSize:'100%'
+    backgroundImage: "url(" + Background + ")",
+    overflow: 'hidden',
+    backgroundSize: 'cover',
+    position: 'fixed',
+    left: 0,
+    minWidth: '100%',
+    minHeight: '100%'
 }
 const Login = ({ handleLogin, handleEmailChange, handlePasswordChange, email, password, msg, id, loggedIn }) => {
     let emailElem;
     let passwordElem;
-    if (loggedIn){
+    if (loggedIn) {
         console.log("LoggedIn")
         let url = '/courses/' + id
         return <Redirect to={url}></Redirect>
     }
-    
+
     return (
         <div style={styles}>
             <MuiThemeProvider>
-                <div style={formStyle}>
+                <div style={loginStyle}>
                     <input className="TextField" style={inputStyle}
                         placeholder=" Email"
                         value={email}
@@ -37,7 +39,7 @@ const Login = ({ handleLogin, handleEmailChange, handlePasswordChange, email, pa
                             if (e.keyCode === 13) {
                                 handleLogin(emailElem.value, passwordElem.value)
                             }
-                        }}/>
+                        }} />
                     <br />
                     <input className="TextField" style={inputStyle}
                         type="password"
@@ -49,47 +51,26 @@ const Login = ({ handleLogin, handleEmailChange, handlePasswordChange, email, pa
                             if (e.keyCode === 13) {
                                 handleLogin(emailElem.value, passwordElem.value)
                             }
-                        }}/>
+                        }} />
                     <br />
-                    
+
                     {msg}
-                    
+
                     <RaisedButton style={{ marginLeft: 105 }} label="Submit" primary={true}
                         onClick={() => handleLogin(emailElem.value, passwordElem.value)} />
                     <br />
-                    
+
                     {<Link style={{ marginLeft: 100 }} to={`/registration`}>
                         Register Here
                         </Link>}
                 </div>
             </MuiThemeProvider>
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
         </div>
     );
 }
 
 const stateToPropsMapper = (state) => (
     {
-        // id: state.userDetails.id,
-        // email: state.userDetails.email,
-        // password: state.userDetails.password,
-        // firstName: state.userDetails.firstName,
-        // lastName: state.userDetails.lastName,
-        // msg: state.userDetails.msg,
-        // loggedIn: state.userDetails.loggedIn
-
         id: state.LoginReducer.userDetails.id,
         email: state.LoginReducer.userDetails.email,
         password: state.LoginReducer.userDetails.password,

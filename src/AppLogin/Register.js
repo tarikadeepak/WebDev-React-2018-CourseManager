@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import { inputStyle, formStyle } from '../styles/index';
+import { inputStyle, registrationStyle } from '../styles/index';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { handleRegisteration, handleEmailChange, handlePasswordChange,
       handleFirstNameChange, handleLastNameChange } from '../actions/index';
+import Background from '../resources/images/library4.jpg'
+
+var styles = {
+    backgroundImage: "url(" + Background + ")",
+    overflow: 'hidden',
+    backgroundSize: 'cover',
+    position: 'fixed',
+    left: 0,
+    minWidth: '100%',
+    minHeight: '100%'
+}
 
 const Register = ({ handleRegisteration, handleFirstNameChange, handleLastNameChange, 
           handleEmailChange, handlePasswordChange, email, password, lastName, 
@@ -16,9 +27,9 @@ const Register = ({ handleRegisteration, handleFirstNameChange, handleLastNameCh
   let passwordElem;
 
   return (
-      <div>
+      <div style={styles}>
         <MuiThemeProvider>
-          <div style={formStyle}>
+          <div style={registrationStyle}>
             <input className="TextField" style={inputStyle}
               placeholder=" First Name"
               value={firstName}
